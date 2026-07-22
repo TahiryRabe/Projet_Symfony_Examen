@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Étudiants{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 fw-bold m-0">Gestion des Étudiants</h1>
+            <p class="text-muted small m-0">Liste complète des étudiants enregistrés.</p>
+        </div>
+        <a href="{{ path('app_etudiant_new') }}" class="btn btn-success d-flex align-items-center gap-2">
+            <i class="bi bi-plus-lg"></i> Ajouter un étudiant
+        </a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card d-flex align-items-center gap-3">
+                <div class="p-2 bg-light rounded text-primary fs-4">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+                <div>
+                    <div class="text-muted small">Total Étudiants</div>
+                    <div class="fs-5 fw-bold">{{ etudiants|length }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form method="get" action="{{ path('app_etudiant_index') }}" class="mb-4">
+        <div class="row g-2">
+            <div class="col-md-10">
+                <input type="text" name="q" value="{{ search }}" class="form-control" placeholder="Rechercher par nom, prénom ou matricule...">
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button class="btn btn-primary w-100" type="submit">Rechercher</button>
+                {% if search %}
+                    <a href="{{ path('app_etudiant_index') }}" class="btn btn-outline-secondary" title="Réinitialiser"><i class="bi bi-x-lg"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-custom align-middle">
+            <thead>
+                <tr>
+                    <th>Étudiant</th>
+                    <th>Matricule</th>
+                    <th>Filière</th>
+                    <th>Téléphone</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for etudiant in etudiants %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar-circle">
+                                {{ etudiant.prenom|slice(0, 1)|upper }}{{ etudiant.nom|slice(0, 1)|upper }}
+                            </div>
+                            <div>
+                                <div class="fw-bold">{{ etudiant.nom|upper }} {{ etudiant.prenom }}</div>
+                                <div class="text-muted small">{{ etudiant.email }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="font-monospace bg-light px-2 py-1 rounded border small">
+                            {{ etudiant.matricule }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1">
+                            {{ etudiant.filiere }}
+                        </span>
+                    </td>
+                    <td class="text-secondary small">{{ etudiant.telephone }}</td>
+                    <td class="text-end">
+                        <div class="btn-group btn-group-sm">
+                            <a href="{{ path('app_etudiant_show', {'id': etudiant.id}) }}" class="btn btn-outline-secondary" title="Consulter">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ path('app_etudiant_edit', {'id': etudiant.id}) }}" class="btn btn-outline-primary" title="Modifier">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-muted">
+                        Aucun étudiant trouvé dans la base de données.
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

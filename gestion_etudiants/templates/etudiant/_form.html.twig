@@ -1,0 +1,93 @@
+{{ form_start(form) }}
+
+<div class="form-section">
+    <h2 class="section-title">Informations Générales</h2>
+    
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="{{ form.nom.vars.id }}" class="form-label">Nom de famille</label>
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Ex : RAKOTO'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.prenom.vars.id }}" class="form-label">Prénom(s)</label>
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Ex : Tahiry'}}) }}
+            {{ form_errors(form.prenom) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.matricule.vars.id }}" class="form-label">Matricule</label>
+            {{ form_widget(form.matricule, {'attr': {'class': 'form-control', 'placeholder': 'Ex : ETU-2026-001'}}) }}
+            {{ form_errors(form.matricule) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.filiere.vars.id }}" class="form-label">Filière / Mention</label>
+            {{ form_widget(form.filiere, {'attr': {'class': 'form-control', 'placeholder': 'Ex : Informatique'}}) }}
+            {{ form_errors(form.filiere) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-section">
+    <h2 class="section-title">Informations Académiques</h2>
+    
+    <div class="form-grid">
+        {% if form.anneeUniversitaire is defined %}
+        <div class="form-group">
+            <label for="{{ form.anneeUniversitaire.vars.id }}" class="form-label">Année universitaire</label>
+            {{ form_widget(form.anneeUniversitaire, {'attr': {'class': 'form-control', 'placeholder': 'Ex : 2025-2026'}}) }}
+            {{ form_errors(form.anneeUniversitaire) }}
+        </div>
+        {% endif %}
+
+        {% if form.dateNaissance is defined %}
+        <div class="form-group">
+            <label for="{{ form.dateNaissance.vars.id }}" class="form-label">Date de naissance</label>
+            {{ form_widget(form.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.dateNaissance) }}
+        </div>
+        {% endif %}
+
+        {% if form.etablissementOrigine is defined %}
+        <div class="form-group">
+            <label for="{{ form.etablissementOrigine.vars.id }}" class="form-label">Établissement d'origine</label>
+            {{ form_widget(form.etablissementOrigine, {'attr': {'class': 'form-control', 'placeholder': 'Ex : Lycée JJ Rabearivelo'}}) }}
+            {{ form_errors(form.etablissementOrigine) }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="form-section">
+    <h2 class="section-title">Coordonnées de Contact</h2>
+    
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="{{ form.email.vars.id }}" class="form-label">Adresse e-mail</label>
+            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'tahiry@example.com'}}) }}
+            <span class="field-help">Utilisée pour les notifications et accès au portail.</span>
+            {{ form_errors(form.email) }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.telephone.vars.id }}" class="form-label">Numéro de téléphone</label>
+            {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Ex : 034 00 000 00'}}) }}
+            {{ form_errors(form.telephone) }}
+        </div>
+    </div>
+</div>
+
+{{ form_rest(form) }}
+
+<div class="form-actions">
+    <a href="{{ path('app_etudiant_index') }}" class="btn btn-secondary">
+        Annuler
+    </a>
+    <button type="submit" class="btn btn-primary">
+        {{ button_label|default('Inscrire l\'étudiant') }}
+    </button>
+</div>
+
+{{ form_end(form, {'render_rest': false}) }}

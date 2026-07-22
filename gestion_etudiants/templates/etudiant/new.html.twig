@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscrire un étudiant{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Inscrire un nouvel étudiant</h1>
+            <p class="page-subtitle">Remplissez le formulaire ci-dessous pour ajouter un étudiant au registre de l'établissement.</p>
+        </div>
+        <a href="{{ path('app_etudiant_index') }}" class="btn btn-secondary">
+            ← Retour à la liste
+        </a>
+    </div>
+
+    {{ include('etudiant/_form.html.twig', {'button_label': 'Inscrire l\'étudiant'}) }}
+{% endblock %}
